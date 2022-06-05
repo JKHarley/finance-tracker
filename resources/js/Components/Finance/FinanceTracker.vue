@@ -54,9 +54,7 @@
                     class="flex justify-between"
                 >
                     <span class="font-semibold">{{ item.desc }}</span>
-                    £<span class="text-gray-500">
-                        £{{ item.price.toFixed(2) }}
-                    </span>
+                    <span class="text-gray-500"> £{{ item.price }} </span>
                 </li>
             </ul>
         </div>
@@ -69,12 +67,12 @@
                     class="flex justify-between"
                 >
                     <span class="font-semibold">{{ item.desc }}</span>
-                    <span class="text-gray-500">
-                        {{ item.price.toFixed(2) }}
-                    </span>
+                    <span class="text-gray-500"> £{{ item.price }} </span>
                 </li>
             </ul>
         </div>
+
+        <div>Total: £{{ total }}.00</div>
     </div>
 </template>
 
@@ -100,6 +98,15 @@ const form: FinanceType = useForm({
 
 const hasInputData = computed<boolean>(() => incomeData.value.length > 0);
 const hasOutcomeData = computed<boolean>(() => outcomeData.value.length > 0);
+const total = computed<number>(() => {
+    const income = incomeData.value.reduce((acc, curr) => {
+        return acc + curr.price;
+    }, 0);
+    const outcome = outcomeData.value.reduce((acc, curr) => {
+        return acc + curr.price;
+    }, 0);
+    return income - outcome;
+});
 
 function handleItemAdded(): void {
     if (form.type === "in") {

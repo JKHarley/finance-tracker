@@ -1055,9 +1055,6 @@ select {
 .-mt-px {
   margin-top: -1px;
 }
-.mb-5 {
-  margin-bottom: 1.25rem;
-}
 .mb-14 {
   margin-bottom: 3.5rem;
 }
@@ -1111,9 +1108,6 @@ select {
 }
 .min-h-screen {
   min-height: 100vh;
-}
-.min-h-full {
-  min-height: 100%;
 }
 .w-5 {
   width: 1.25rem;
@@ -1264,9 +1258,6 @@ select {
 }
 .gap-1 {
   gap: 0.25rem;
-}
-.gap-5 {
-  gap: 1.25rem;
 }
 .gap-10 {
   gap: 2.5rem;
