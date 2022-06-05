@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "esnext",
+        "moduleResolution": "node",
+        "strict": false,
+        "sourceMap": true,
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
+        "isolatedModules": true,
+        "typeRoots": [
+            "node_modules/@types",
+        ],
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["/resources/js/*"],
+            "ziggy/*": ["vendor/tightenco/ziggy/dist/*"],
+        },
+        "jsx": "preserve",
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}
