@@ -12,7 +12,8 @@
         "laravel/jetstream": "^2.8",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
-        "spatie/typescript-transformer": "^2.1",
+        "spatie/data-transfer-object": "^3.8",
+        "spatie/laravel-typescript-transformer": "^2.1",
         "tightenco/ziggy": "^1.0"
     },
     "require-dev": {

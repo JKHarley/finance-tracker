@@ -2,6 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\DataTransferObjects\FrontendState;
+use App\DataTransferObjects\UserData;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -36,8 +39,10 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        return array_merge(parent::share($request), [
-            //
+        FrontendState::setUp([
+            'user' => UserData::from(User::query()->first()),
         ]);
+
+        return parent::share($request);
     }
 }
