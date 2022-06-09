@@ -73,7 +73,6 @@
         </div>
 
         <div>Total: £{{ total }}.00</div>
-        {{ user.email }}
     </div>
 </template>
 
@@ -82,10 +81,7 @@ import { ref } from "vue";
 import type { Ref } from "vue";
 import { useForm } from "@inertiajs/inertia-vue3";
 import { computed } from "@vue/reactivity";
-import { usePage } from "public/js/app";
 import useUser from "resources/js/Hooks/useUser";
-
-const user = useUser();
 
 interface FinanceType {
     type: string;
@@ -101,10 +97,6 @@ const form = useForm({
     desc: null,
     price: null,
 });
-
-function getUsersName() {
-    return computed(() => usePage().props)
-}
 
 const hasInputData = computed<boolean>(() => incomeData.value.length > 0);
 const hasOutcomeData = computed<boolean>(() => outcomeData.value.length > 0);

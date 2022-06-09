@@ -39,8 +39,10 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $user = auth()->user();
+
         FrontendState::setUp([
-            'user' => UserData::from(User::query()->first()),
+            'user' => !is_null($user) ? UserData::from($user) : null,
         ]);
 
         return parent::share($request);

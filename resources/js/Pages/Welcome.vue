@@ -22,7 +22,7 @@ defineProps({
             <Link
                 v-if="$page.props.user"
                 :href="route('dashboard')"
-                class="text-sm text-gray-700 underline"
+                class="text-sm text-gray-700 underline flex just"
             >
                 Dashboard
             </Link>

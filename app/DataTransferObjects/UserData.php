@@ -10,21 +10,14 @@ class UserData extends DataTransferObject
 {
     public string $name;
     public string $email;
-
-    public static function create(User $user): self
-    {
-        return new static([
-            'name' => "{$user->first_name} {$user->last_name}",
-            'email' => $user->email,
-            'password' => bcrypt($user->password),
-        ]);
-    }
+    public string $created_at;
 
     public static function from(User $user): self
     {
         return new static([
-            'name' => "{$user->first_name} {$user->last_name}",
+            'name' => $user->name,
             'email' => $user->email,
+            'created_at' => $user->created_at,
         ]);
     }
 }
