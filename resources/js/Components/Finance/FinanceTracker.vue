@@ -64,11 +64,11 @@
             <!-- Fix -->
                 <li
                     v-for="item in outgoings"
-                    :key="item.desc + item.price"
+                    :key="item.description + item.amount"
                     class="flex justify-between"
                 >
-                    <span class="font-semibold">{{ item.desc }}</span>
-                    <span class="text-gray-500"> £{{ item.price }} </span>
+                    <span class="font-semibold">{{ item.description }}</span>
+                    <span class="text-gray-500"> £{{ item.amount }} </span>
                 </li>
             </ul>
         </div>

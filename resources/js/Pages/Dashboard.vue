@@ -25,8 +25,7 @@ const user = useUser();
                     Dashboard
                 </h2>
                 <div>
-                    <!-- Remove name for users email -->
-                    {{ user.name }}
+                    {{ user.email }}
                 </div>
             </div>
         </template>
