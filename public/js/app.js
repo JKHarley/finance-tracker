@@ -21678,53 +21678,65 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({
   name: 'FinanceTracker',
+  props: {
+    income: {
+      type: Array,
+      required: true
+    },
+    outgoings: {
+      type: Array,
+      required: true
+    }
+  },
   setup: function setup(__props, _b) {
     var expose = _b.expose;
     expose();
-    var incomeData = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
-    var outcomeData = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
+    var props = __props;
+    var incomings = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(props.income);
+    var outgoings = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(props.outgoings);
     var form = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.useForm)({
       type: "in",
       desc: null,
       price: null
     });
-    var hasInputData = (0,_vue_reactivity__WEBPACK_IMPORTED_MODULE_2__.computed)(function () {
-      return incomeData.value.length > 0;
+    var hasIncomeData = (0,_vue_reactivity__WEBPACK_IMPORTED_MODULE_2__.computed)(function () {
+      return incomings.value.length > 0;
     });
     var hasOutcomeData = (0,_vue_reactivity__WEBPACK_IMPORTED_MODULE_2__.computed)(function () {
-      return outcomeData.value.length > 0;
+      return outgoings.value.length > 0;
     });
     var total = (0,_vue_reactivity__WEBPACK_IMPORTED_MODULE_2__.computed)(function () {
-      var income = incomeData.value.reduce(function (acc, curr) {
-        return acc + curr.price;
+      var income = incomings.value.reduce(function (acc, curr) {
+        return acc + curr.amount;
       }, 0);
-      var outcome = outcomeData.value.reduce(function (acc, curr) {
-        return acc + curr.price;
+      var outcome = outgoings.value.reduce(function (acc, curr) {
+        return acc + curr.amount;
       }, 0);
       return income - outcome;
     });
 
     function handleItemAdded() {
       if (form.type === "in") {
-        incomeData.value.push({
+        incomings.value.push({
           type: form.type,
-          desc: form.desc,
-          price: form.price
+          description: form.desc,
+          amount: form.price
         });
       } else {
-        outcomeData.value.push({
+        outgoings.value.push({
           type: form.type,
-          desc: form.desc,
-          price: form.price
+          description: form.desc,
+          amount: form.price
         });
       }
     }
 
     var __returned__ = {
-      incomeData: incomeData,
-      outcomeData: outcomeData,
+      props: props,
+      incomings: incomings,
+      outgoings: outgoings,
       form: form,
-      hasInputData: hasInputData,
+      hasIncomeData: hasIncomeData,
       hasOutcomeData: hasOutcomeData,
       total: total,
       handleItemAdded: handleItemAdded
@@ -21751,23 +21763,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var _Layouts_AppLayout_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Layouts/AppLayout.vue */ "./resources/js/Layouts/AppLayout.vue");
+/* harmony import */ var _Hooks_useUser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Hooks/useUser */ "./resources/js/Hooks/useUser.ts");
+/* harmony import */ var _vue_reactivity__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @vue/reactivity */ "./node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js");
 /* harmony import */ var _Components_Finance_FinanceTracker_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Components/Finance/FinanceTracker.vue */ "./resources/js/Components/Finance/FinanceTracker.vue");
-/* harmony import */ var _Hooks_useUser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Hooks/useUser */ "./resources/js/Hooks/useUser.ts");
+/* harmony import */ var _Layouts_AppLayout_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Layouts/AppLayout.vue */ "./resources/js/Layouts/AppLayout.vue");
+
 
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({
   name: 'Dashboard',
+  props: {
+    income: {
+      type: Array,
+      required: true
+    },
+    outgoings: {
+      type: Array,
+      required: true
+    }
+  },
   setup: function setup(__props, _b) {
     var expose = _b.expose;
     expose();
-    var user = (0,_Hooks_useUser__WEBPACK_IMPORTED_MODULE_3__["default"])();
+    var props = __props;
+    var incomings = (0,_vue_reactivity__WEBPACK_IMPORTED_MODULE_4__.ref)(props.income);
+    var outgoings = (0,_vue_reactivity__WEBPACK_IMPORTED_MODULE_4__.ref)(props.outgoings);
+    var user = (0,_Hooks_useUser__WEBPACK_IMPORTED_MODULE_1__["default"])();
     var __returned__ = {
+      props: props,
+      incomings: incomings,
+      outgoings: outgoings,
       user: user,
-      AppLayout: _Layouts_AppLayout_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-      FinanceTracker: _Components_Finance_FinanceTracker_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+      FinanceTracker: _Components_Finance_FinanceTracker_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+      AppLayout: _Layouts_AppLayout_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -21848,7 +21878,7 @@ var _hoisted_12 = {
   "class": "text-gray-500"
 };
 
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Outcome", -1
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Outgoings", -1
 /* HOISTED */
 );
 
@@ -21897,18 +21927,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.price]]), _hoisted_7]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: $setup.handleItemAdded,
     "class": "bg-indigo-600 text-white px-6 text-sm ml-3"
-  }, " Add ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_9, $setup.hasInputData ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", _hoisted_10, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.incomeData, function (item) {
+  }, " Add ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_9, $setup.hasIncomeData ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", _hoisted_10, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.incomings, function (item) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
-      key: item.desc + item.price,
+      key: item.description + item.amount,
       "class": "flex justify-between"
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.desc), 1
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.description), 1
     /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_12, " £" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.price), 1
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_12, " £" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.amount), 1
     /* TEXT */
     )]);
   }), 128
   /* KEYED_FRAGMENT */
-  ))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_13, $setup.hasOutcomeData ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", _hoisted_14, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.outcomeData, function (item) {
+  ))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_13, $setup.outgoings ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Fix "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.outgoings, function (item) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
       key: item.desc + item.price,
       "class": "flex justify-between"
@@ -21956,12 +21986,17 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     title: "Dashboard"
   }, {
     header: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.user.email), 1
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Remove name for users email "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.user.name), 1
       /* TEXT */
-      )])];
+      )])])];
     }),
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FinanceTracker"])];
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FinanceTracker"], {
+        income: $setup.incomings,
+        outgoings: $setup.outgoings
+      }, null, 8
+      /* PROPS */
+      , ["income", "outgoings"])];
     }),
     _: 1
     /* STABLE */

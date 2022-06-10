@@ -1,5 +1,6 @@
 <?php
 
+use App\DataTransferObjects\FinanceData;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -32,6 +33,12 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
+        $income = auth()->user()->finances()->where('type', 'income')->get();
+        $outgoings = auth()->user()->finances()->where('type', 'outgoing')->get();
+
+        return Inertia::render('Dashboard', [
+            'income' => $income->map(fn ($item) => FinanceData::from($item)),
+            'outgoings' => $outgoings,
+        ]);
     })->name('dashboard');
 });

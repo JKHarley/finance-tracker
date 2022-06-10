@@ -47,22 +47,23 @@
     <div class="grid grid-cols-2 gap-10">
         <div>
             <h2>Income</h2>
-            <ul v-if="hasInputData">
+            <ul v-if="hasIncomeData">
                 <li
-                    v-for="item in incomeData"
-                    :key="item.desc + item.price"
+                    v-for="item in incomings"
+                    :key="item.description + item.amount"
                     class="flex justify-between"
                 >
-                    <span class="font-semibold">{{ item.desc }}</span>
-                    <span class="text-gray-500"> £{{ item.price }} </span>
+                    <span class="font-semibold">{{ item.description }}</span>
+                    <span class="text-gray-500"> £{{ item.amount }} </span>
                 </li>
             </ul>
         </div>
         <div>
-            <h2>Outcome</h2>
-            <ul v-if="hasOutcomeData">
+            <h2>Outgoings</h2>
+            <ul v-if="outgoings">
+            <!-- Fix -->
                 <li
-                    v-for="item in outcomeData"
+                    v-for="item in outgoings"
                     :key="item.desc + item.price"
                     class="flex justify-between"
                 >
@@ -81,16 +82,17 @@ import { ref } from "vue";
 import type { Ref } from "vue";
 import { useForm } from "@inertiajs/inertia-vue3";
 import { computed } from "@vue/reactivity";
-import useUser from "resources/js/Hooks/useUser";
 
-interface FinanceType {
-    type: string;
-    desc: string;
-    price: number;
-}
+interface FinanceType extends App.DataTransferObjects.FinanceData {}
 
-const incomeData: Ref<Array<FinanceType>> = ref([]);
-const outcomeData: Ref<Array<FinanceType>> = ref([]);
+const props = defineProps<{
+    income: Array<FinanceType>,
+    outgoings: Array<FinanceType>,
+}>();
+
+const incomings: Ref<Array<FinanceType>> = ref(props.income);
+const outgoings: Ref<Array<FinanceType>> = ref(props.outgoings);
+
 
 const form = useForm({
     type: "in",
@@ -98,31 +100,32 @@ const form = useForm({
     price: null,
 });
 
-const hasInputData = computed<boolean>(() => incomeData.value.length > 0);
-const hasOutcomeData = computed<boolean>(() => outcomeData.value.length > 0);
+const hasIncomeData = computed<boolean>(() => incomings.value.length > 0);
+const hasOutcomeData = computed<boolean>(() => outgoings.value.length > 0);
 
 const total = computed<number>(() => {
-    const income = incomeData.value.reduce((acc, curr) => {
-        return acc + curr.price;
+    const income = incomings.value.reduce((acc, curr) => {
+        return acc + curr.amount;
     }, 0);
-    const outcome = outcomeData.value.reduce((acc, curr) => {
-        return acc + curr.price;
+    const outcome = outgoings.value.reduce((acc, curr) => {
+        return acc + curr.amount;
     }, 0);
+
     return income - outcome;
 });
 
 function handleItemAdded(): void {
     if (form.type === "in") {
-        incomeData.value.push({
+        incomings.value.push({
             type: form.type,
-            desc: form.desc,
-            price: form.price,
+            description: form.desc,
+            amount: form.price,
         });
     } else {
-        outcomeData.value.push({
+        outgoings.value.push({
             type: form.type,
-            desc: form.desc,
-            price: form.price,
+            description: form.desc,
+            amount: form.price,
         });
     }
 }

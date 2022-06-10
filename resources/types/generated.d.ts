@@ -1,4 +1,9 @@
 declare namespace App.DataTransferObjects {
+export type FinanceData = {
+description: string;
+amount: number;
+type: string;
+};
 export type FrontendState = {
 user: App.DataTransferObjects.UserData | null;
 };

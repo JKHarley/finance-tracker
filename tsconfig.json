@@ -10,6 +10,7 @@
         "isolatedModules": true,
         "typeRoots": [
             "node_modules/@types",
+            "resources/types"
         ],
         "baseUrl": ".",
         "paths": {

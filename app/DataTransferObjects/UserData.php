@@ -17,7 +17,7 @@ class UserData extends DataTransferObject
         return new static([
             'name' => $user->name,
             'email' => $user->email,
-            'created_at' => $user->created_at,
+            'created_at' => $user->created_at->format('d/m/Y'),
         ]);
     }
 }
